@@ -141,8 +141,14 @@ describe('Network Sagas', () => {
         expect(gen.next(tx).value).toEqual(call(getTransactionFields, transaction));
       });
 
+      it('should select isSchedulingEnabled', () => {
+        expect(gen.next(transactionFields).value).toEqual(
+          select(scheduleSelectors.isSchedulingEnabled)
+        );
+      });
+
       it('should put estimatedGasRequested with rest', () => {
-        expect(gen.next(transactionFields).value).toEqual(put(actions.estimateGasRequested(rest)));
+        expect(gen.next(false).value).toEqual(put(actions.estimateGasRequested(rest)));
       });
     });
 
