@@ -247,25 +247,10 @@ describe('Network Sagas', () => {
         );
       });
 
-      it('should select isSchedulingEnabled', () => {
+      it('should put setGasLimitField', () => {
         gens.timeOutCase = gens.successCase.clone();
         expect(gens.successCase.next(successfulGasEstimationResult).value).toEqual(
-          select(scheduleSelectors.isSchedulingEnabled)
-        );
-      });
-
-      it('should put setGasLimitField', () => {
-        gens.scheduleCase = gens.successCase.clone();
-        const notScheduling = null as any;
-        expect(gens.successCase.next(notScheduling).value).toEqual(
           put(transactionFieldsActions.setGasLimitField(gasSetOptions))
-        );
-      });
-
-      it('should put setScheduleGasLimitField', () => {
-        const scheduling = { value: true } as any;
-        expect(gens.scheduleCase.next(scheduling).value).toEqual(
-          put(scheduleActions.setScheduleGasLimitField(gasSetOptions))
         );
       });
 
